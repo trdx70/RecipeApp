@@ -4,7 +4,6 @@ import {ApolloProvider} from 'react-apollo'
 import ApolloClient from 'apollo-boost';
 import { BrowserRouter, Route} from 'react-router-dom';
 import './index.css';
-import '../node_modules/materialize-css/dist/css/meterialize.min.css';
 
 import Header from './src/components/Header';
 import RecipeList from './src/components/RecipeList';
