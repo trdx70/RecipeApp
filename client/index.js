@@ -11,7 +11,7 @@ import RecipeCreate from './src/components/RecipeCreate';
 import RecipeDetail from './src/components/RecipeDetails';
 
 const client = new ApolloClient({
-   uri: "http://localhost:3000/graphql"
+   
 })
 
 const App = () => {
