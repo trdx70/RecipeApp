@@ -14,7 +14,8 @@ const app = express();
 app.use(cors());
 
 //for mongo use
-const MONGO_CONN = 'mongodb://localhost:27017/recipe';
+//const MONGO_CONN = 'mongodb://localhost:27017/recipe';
+const MONGO_CONN = 'mongodb://strinidad:_10oclockNOW@ds139037.mlab.com:39037/recipe';
 if (!MONGO_CONN) {
     throw new Error('Please provide your Mongodb connection string');
 }
