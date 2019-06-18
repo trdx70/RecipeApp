@@ -4,6 +4,7 @@ import {ApolloProvider} from 'react-apollo'
 import ApolloClient from 'apollo-boost';
 import { BrowserRouter, Route} from 'react-router-dom';
 import './index.css';
+import key from '../server/config/key';
 
 import Header from './src/components/Header';
 import RecipeList from './src/components/RecipeList';
@@ -11,7 +12,7 @@ import RecipeCreate from './src/components/RecipeCreate';
 import RecipeDetail from './src/components/RecipeDetails';
 
 const client = new ApolloClient({
-   
+  uri:  key.apolloClientUri
 })
 
 const App = () => {
