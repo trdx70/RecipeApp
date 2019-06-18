@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const expressGraphQL = require('express-graphql');
 const publicPath = path.join(__dirname, '..', 'public')
+const key = require('./config/key');
 
 const schema = require('./schema/schema');
 
@@ -15,7 +16,7 @@ app.use(cors());
 
 //for mongo use
 //const MONGO_CONN = 'mongodb://localhost:27017/recipe';
-const MONGO_CONN = 'mongodb://strinidad:_10oclockNOW@ds139037.mlab.com:39037/recipe';
+const MONGO_CONN = key.mongoURI;
 if (!MONGO_CONN) {
     throw new Error('Please provide your Mongodb connection string');
 }
