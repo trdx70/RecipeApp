@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const graphql = require('graphql');
 const RecipeType = require('./recipe-type');
 const Recipe = require('../models/recipe');
+const UserType = require('./user-type');
 const {
     GraphQLObjectType,
     GraphQLList,
@@ -25,6 +26,12 @@ const RootQueryType = new GraphQLObjectType({
             },
             resolve(parentValue, args) {
                 return Recipe.findById(args.id);
+            }
+        },
+        user: {
+            type: UserType,
+            resolve(parentValue, args, req) {
+                return req.user;
             }
         }
     }

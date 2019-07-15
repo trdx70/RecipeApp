@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const graphql = require('graphql');
 const {
     GraphQLObjectType,
@@ -7,11 +8,12 @@ const {
     GraphQLString
 } = graphql;
 
-const mongoose = require('mongoose');
 const Recipe = require('../models/recipe');
 const RecipeType = require('./recipe-type');
 const IngredientType = require('./ingredient-type');
 const Ingredient = require('../models/ingredient');
+const UserType = require('./user-type');
+const AuthMe = require('../service/passportAuth');
 
 const MutationType = new GraphQLObjectType({
     name: 'Mutation',
@@ -56,6 +58,36 @@ const MutationType = new GraphQLObjectType({
                 //console.log(parentValue, args);
                 return Recipe.deleteOne({_id: id })
                
+            }
+        },
+        //***************User Part Mutations*********************** */
+        login: {
+            type: UserType,
+            args: {
+                email: { type: GraphQLString },
+                password: { type: GraphQLString }
+            },
+            resolve(parentValue, {email, password}, req) {
+               return AuthMe.login({email, password, req})
+            }
+ 
+        },
+        signup: {
+            type: UserType,
+            args: {
+                email: { type: GraphQLString },
+                password: { type: GraphQLString }
+            },
+            resolve(parentValue, {email, password}, req) {
+                return AuthMe.signup({email,password,req})
+            }
+        },
+        logout: {
+            type: UserType,
+            resolve(parentValue, args, req) {
+                const { user } = req;
+                req.logout();
+                return user;
             }
         }
     }
