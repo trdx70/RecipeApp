@@ -1,13 +1,13 @@
 const express = require('express');
 const path = require('path');
 const cookieSession = require('cookie-session');
-//const session = require('express-session');
+const session = require('express-session');
 const mongoose = require('mongoose');
 const passport = require('passport');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const expressGraphQL = require('express-graphql');
-//const MongoStore = require('connect-mongo')(session);
+const MongoStore = require('connect-mongo')(session);
 const publicPath = path.join(__dirname, '..', 'public')
 const key = require('./config/key');
 
@@ -17,7 +17,10 @@ const passportAuth = require('./service/passportAuth');
 const app = express();
 
 //for cross origin req
-app.use(cors());
+app.use(cors({
+  // origin: 'http://localhost:8080',
+  // credentials: true
+}));
 
 //for mongo use
 //const MONGO_CONN = 'mongodb://localhost:27017/recipe';
@@ -34,22 +37,23 @@ mongoose.connection
 //bodyParser
 app.use(bodyParser.json());
 
-app.use(
-    cookieSession({
-       maxAge: 30 * 24 * 60 * 60 * 1000,
-       keys: [key.cookieKey]
-    })
-);
-
-// app.use(session({
-//     resave: true,
-//     saveUninitialized: true,
-//     secret: 'aaabbbccc',
-//     store: new MongoStore({
-//       url: MONGO_CONN,
-//       autoReconnect: true
+// app.use(
+//     cookieSession({
+//        maxAge: 30 * 24 * 60 * 60 * 1000,
+//        keys: [key.cookieKey],
+//        domain: 'http://localhost:8080'
 //     })
-//   }));
+// );
+
+app.use(session({
+    resave: true,
+    saveUninitialized: true,
+    secret: 'aaabbbccc',
+    store: new MongoStore({
+      url: MONGO_CONN,
+      autoReconnect: true
+    })
+  }));
   
 
 // Passport is wired into express as a middleware. When a request comes in,

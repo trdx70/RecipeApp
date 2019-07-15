@@ -79,7 +79,7 @@ const MutationType = new GraphQLObjectType({
                 password: { type: GraphQLString }
             },
             resolve(parentValue, {email, password}, req) {
-                return AuthMe.signup({email,password,req})
+               return AuthMe.signup({email,password,req})  
             }
         },
         logout: {

@@ -14,17 +14,15 @@ class Signup extends Component {
     }
 
     componentWillUpdate(nextProps) {
-    //     console.log(this.props, nextProps);
-    console.log(nextProps);
+       console.log(nextProps.data.user);
+       const userName = nextProps.data.user.email.split('@')[0];
         if (nextProps.data.user) {
-            history.pushState('/dashboard');
+            nextProps.history.push(`/dashboard/${userName}`);
         }
-        nextProps.history.push('/login');
         
     }
    
     onSubmit({email, password}) {
-       console.log(this.props);
        this.props.mutate({
            variables: {
                email,
@@ -35,6 +33,7 @@ class Signup extends Component {
            const errors = res.graphQLErrors.map(err => { return err.message })
            this.setState({errors});
        });
+
     }
 
     render() {

@@ -1,9 +1,8 @@
 const mongoose = require('mongoose');
-require('../models/user');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
-const User = mongoose.model('user');
+const User = require('../models/user');
 
 //used to provide some identifying token that can be saved
 // in the users session. 
@@ -15,7 +14,7 @@ passport.serializeUser((user, done) => {
 // the user object.  This object is placed on 'req.user'.
 passport.deserializeUser((id, done) => {
    User.findById(id, (err, user) => {
-      done(null, user);
+      done(err, user);
    })
 });
 
@@ -27,7 +26,7 @@ passport.deserializeUser((id, done) => {
 // the password might not match the saved one.  In either case, we call the 'done'
 // callback, including a string that messages why the authentication process failed.
 // This string is provided back to the GraphQL client.
-passport.use((new LocalStrategy({usernameField: 'email'},
+passport.use(new LocalStrategy({usernameField: 'email'},
     (email, password, done) => {
         User.findOne({ email: email.toLowerCase() }, (err, user) => {
            if (err) {
@@ -47,7 +46,7 @@ passport.use((new LocalStrategy({usernameField: 'email'},
           });
         })
     }
-)));
+));
 
 // Logs in a user.  This will invoke the 'local-strategy' defined above in this
 // file. The 'passport.authenticate'
@@ -75,18 +74,16 @@ function signup({email, password, req}) {
           .then(userExist => {
               if (userExist) { 
                 throw new Error('Email already exist');
-              } else {
-                return user.save();
               }
+              return user.save();
           })
           .then(user => {
               return new Promise((resolve, reject) => {
                   req.login(user, (err) => {
                       if (err) { 
                          reject(err); 
-                      } else {
-                        resolve(user);
                       }
+                      resolve(user);
                   });
               })
           })
