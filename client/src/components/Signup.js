@@ -14,9 +14,8 @@ class Signup extends Component {
     }
 
     componentWillUpdate(nextProps) {
-       const userName = nextProps.data.user.email.split('@')[0];
         if (nextProps.data.user) {
-            nextProps.history.push(`/dashboard/${userName}`);
+            nextProps.history.push('/dashboard');
         }
         
     }

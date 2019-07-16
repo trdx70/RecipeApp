@@ -39,7 +39,7 @@ const App = () => {
                         <Route path="/recipes/new" component={RecipeCreate} />
                         <Route path="/login" component={Login} />
                         <Route path="/signup" component={Signup} />
-                        <Route path="/dashboard/:user" component={Dashboard} />
+                        <Route path="/dashboard" component={Dashboard} />
                         <Route path="/recipe/:id" component={RecipeDetail} />
                     </div>
                 </BrowserRouter>

@@ -18,8 +18,8 @@ const app = express();
 
 //for cross origin req
 app.use(cors({
-  // origin: 'http://localhost:8080',
-  // credentials: true
+  origin: 'http://localhost:8080',
+  credentials: true
 }));
 
 //for mongo use
