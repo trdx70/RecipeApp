@@ -48,6 +48,5 @@ class Signup extends Component {
 
 export default compose(
     graphql(currentUser),
-    graphql(signupMutate)   
-    )(Signup);
+    graphql(signupMutate))(Signup);
  
