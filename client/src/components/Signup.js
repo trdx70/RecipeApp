@@ -14,7 +14,6 @@ class Signup extends Component {
     }
 
     componentWillUpdate(nextProps) {
-       console.log(nextProps.data.user);
        const userName = nextProps.data.user.email.split('@')[0];
         if (nextProps.data.user) {
             nextProps.history.push(`/dashboard/${userName}`);
