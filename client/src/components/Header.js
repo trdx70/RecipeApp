@@ -11,7 +11,7 @@ class Header extends Component {
     onLogout() {
         this.props.mutate({
             refetchQueries: [{query: currentUser}]
-        })
+        });
     }
 
     renderButtons() {

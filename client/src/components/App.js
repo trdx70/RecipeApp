@@ -13,6 +13,8 @@ import RecipeDetail from './RecipeDetails';
 import Signup from './Signup';
 import Dashboard from './Dashboard';
 import Login from './Login';
+import Landing from './Landing';
+import isAuthenticated from '../hoc/ReqAuth';
 
 const cache = new InMemoryCache({
     dataIdFromObject: o => o.id
@@ -35,11 +37,11 @@ const App = () => {
                 <BrowserRouter>
                     <Header />
                     <div>
-                        <Route path="/" exact component={RecipeList}/>
+                        <Route path="/" exact component={Landing}/>
                         <Route path="/recipes/new" component={RecipeCreate} />
                         <Route path="/login" component={Login} />
                         <Route path="/signup" component={Signup} />
-                        <Route path="/dashboard" component={Dashboard} />
+                        <Route path="/dashboard" component={isAuthenticated(Dashboard)} />
                         <Route path="/recipe/:id" component={RecipeDetail} />
                     </div>
                 </BrowserRouter>

@@ -23,7 +23,6 @@ class Login extends Component {
     }
 
     onSubmit({email, password}) {
-       console.log(this);
        this.props.mutate({
            variables: {
                email,
